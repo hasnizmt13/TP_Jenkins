@@ -5,7 +5,7 @@ pipeline {
 
    stage ('Test') { // la phase build
 steps {
-sh './gradlew test'
+bat 'gradlew test'
  junit 'build/test-results/test/TEST-Matrix.xml'
 
    cucumber buildStatus: 'UNSTABLE',
@@ -21,7 +21,7 @@ sh './gradlew test'
         stage('Code Analysis') {
           steps {
             withSonarQubeEnv('sonar') {
-              sh 'gradle sonar'
+              bat 'gradle sonar'
             }
 
 
@@ -44,8 +44,8 @@ sh './gradlew test'
 
 
       steps {
-        sh(script: 'gradle build', label: 'gradle build')
-        sh 'gradle javadoc'
+        bat(script: 'gradle build', label: 'gradle build')
+        bat 'gradle javadoc'
         archiveArtifacts 'build/libs/*.jar'
         junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
 
@@ -54,7 +54,7 @@ sh './gradlew test'
 
      stage('Deploy') {
       steps {
-        sh 'gradle publish'
+        bat 'gradle publish'
       }
     }
 
