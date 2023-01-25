@@ -3,7 +3,7 @@
     stages {
         stage ('test') { // la phase build is
             steps {
-                bat 'gradle test'
+                bat 'gradlew test'
                 archiveArtifacts 'build/test-results/'
                 cucumber reportTitle: 'Cucumber report',
                 fileIncludePattern: 'target/report.json',
